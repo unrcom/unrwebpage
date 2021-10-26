@@ -1,4 +1,10 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
+import {
+  selectSelectedMenu,
+  selectNavigator,
+} from "../features/navigator/navigatorSlice";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -6,7 +12,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Navigator from "./Navigator";
-import Content from "./Content";
+import Content000 from "./Content000";
+import Content001 from "./Content001";
+import Auth from "./Auth";
 import Header from "./Header";
 
 function Copyright() {
@@ -14,7 +22,7 @@ function Copyright() {
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://unremoted.com/">
-        unremote.com
+        unremoted.com
       </Link>{" "}
       {new Date().getFullYear()}.
     </Typography>
@@ -166,13 +174,16 @@ theme = {
 
 const drawerWidth = 256;
 
-export default function Paperbase() {
+export default function Dumymain() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const selectedMenu = useSelector(selectSelectedMenu);
+  const navigator = useSelector(selectNavigator);
 
   return (
     <ThemeProvider theme={theme}>
@@ -196,12 +207,34 @@ export default function Paperbase() {
           />
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          <Header onDrawerToggle={handleDrawerToggle} />
+          <>
+            {selectedMenu.value >= 0 && selectedMenu.value <= 7 && (
+              <Header onDrawerToggle={handleDrawerToggle} />
+            )}
+            {selectedMenu.value >= 10 && selectedMenu.value <= 19 && (
+              <Header onDrawerToggle={handleDrawerToggle} />
+            )}
+          </>
           <Box
             component="main"
             sx={{ flex: 1, py: 6, px: 4, bgcolor: "#eaeff1" }}
           >
-            <Content />
+            <>
+              {selectedMenu.value === 0 &&
+              navigator[selectedMenu.value].selectedTabValue === 0 ? (
+                <Content000 />
+              ) : selectedMenu.value === 0 &&
+                navigator[selectedMenu.value].selectedTabValue === 3 ? (
+                <Content000 />
+              ) : selectedMenu.value === 1 &&
+                navigator[selectedMenu.value].selectedTabValue === 0 ? (
+                <Auth />
+              ) : selectedMenu.value === 10 ? (
+                <Content000 />
+              ) : (
+                <Content001 />
+              )}
+            </>
           </Box>
           <Box component="footer" sx={{ p: 2, bgcolor: "#eaeff1" }}>
             <Copyright />
