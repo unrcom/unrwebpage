@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
 export interface USERPROFILE {
@@ -9,6 +9,7 @@ export interface USERPROFILE {
   displayName: string;
   providerDisplayName: string;
   photoUrl: string;
+  offline: boolean;
 }
 
 export const authSlice = createSlice({
@@ -22,6 +23,7 @@ export const authSlice = createSlice({
       displayName: "",
       providerDisplayName: "",
       photoUrl: "",
+      offline: false,
     },
   },
   reducers: {
@@ -37,20 +39,11 @@ export const authSlice = createSlice({
         displayName: "",
         providerDisplayName: "",
         photoUrl: "",
+        offline: false,
       };
     },
     updateUserProfile: (state, action) => {
       state.user = action.payload;
-      //   state.user.displayName = action.payload;
-      //   state.user.domain = action.payload;
-      // providerId: action.payload.providerId,
-      // uid: action.payload.uid,
-      // domain: action.payload.domain,
-      // rool: action.payload.rool,
-      // displayName: action.payload.displayName,
-      // providerDisplayName: action.payload.providerDisplayName,
-      // photoUrl: action.payload.photoUrl,
-      //   };
     },
   },
 });

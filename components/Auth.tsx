@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectUser,
-  login,
-  logout,
-  updateUserProfile,
-} from "../features/auth/authSlice";
+import { selectUser, updateUserProfile } from "../features/auth/authSlice";
 
 import { auth, provider, db } from "../firebase";
-import { onAuthStateChanged, signInWithPopup } from "firebase/auth";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { signInWithPopup } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
 
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -56,64 +51,54 @@ const Auth: React.FC = () => {
     await signInWithPopup(auth, provider).catch((err) => alert(err.message));
   };
 
-  useEffect(() => {
-    const unSub = onAuthStateChanged(auth, (authUser) => {
-      if (authUser) {
-        dispatch(
-          login({
-            providerId: authUser.providerId,
-            uid: authUser.uid,
-            photoUrl: authUser.photoURL,
-            displayName: user.displayName,
-            providerDisplayName: authUser.displayName,
-            domain: user.domain,
-            rool: user.rool,
-          })
-        );
-      } else {
-        dispatch(logout());
-      }
+  const updateDisplayname = async () => {
+    const id = user.providerId + "_" + user.uid;
+    const docRef = doc(db, "users", id);
+    await updateDoc(docRef, {
+      displayName: newDisplayName,
     });
-    return () => {
-      unSub();
-    };
-  }, [dispatch]);
-
-  const fetchUsers = async () => {
-    const usersRef = collection(db, "users");
-    const q = query(
-      usersRef,
-      where("providerId", "==", user.providerId),
-      where("uid", "==", user.uid)
+    dispatch(
+      updateUserProfile({
+        providerId: user.providerId,
+        uid: user.uid,
+        photoUrl: user.photoUrl,
+        providerDisplayName: user.providerDisplayName,
+        displayName: newDisplayName,
+        domain: user.domain,
+        rool: user.rool,
+      })
     );
-    //Review later
-    const docSnap = await getDocs(q);
-    docSnap.forEach((doc) => {
-      dispatch(
-        updateUserProfile({
-          providerId: user.providerId,
-          uid: user.uid,
-          photoUrl: user.photoUrl,
-          providerDisplayName: user.providerDisplayName,
-          displayName: doc.data().displayName,
-          domain: doc.data().domain,
-          rool: doc.data().rool,
-        })
-      );
-    });
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, [user.providerId, user.uid, dispatch]);
+  const updateDomain = async () => {
+    const id = user.providerId + "_" + user.uid;
+    const docRef = doc(db, "users", id);
+    await updateDoc(docRef, {
+      domain: newDomain,
+    });
+    dispatch(
+      updateUserProfile({
+        providerId: user.providerId,
+        uid: user.uid,
+        photoUrl: user.photoUrl,
+        providerDisplayName: user.providerDisplayName,
+        displayName: user.displayName,
+        domain: newDomain,
+        rool: user.rool,
+      })
+    );
+  };
 
   const editDiaplayName = () => {
-    return null;
+    updateDisplayname();
   };
 
   const editDomain = () => {
-    return null;
+    updateDomain();
   };
+
+  const displayNameIsDisabled = newDisplayName.length === 0;
+  const domainIsDisabled = newDomain.length === 0;
 
   return (
     <>
@@ -161,20 +146,17 @@ const Auth: React.FC = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
+              disabled={displayNameIsDisabled}
               onClick={editDiaplayName}
             >
               Display name を変更
             </Button>
             <Box mt={6}>
-              ドメインにはあなたが所属する組織の管理者が指定するフレーズを登録します。
-              通常はドメイン (example.com など)
-              が指定されますが、不明な場合は管理者に確認してください。
-              ドメインを指定しない場合は管理者と連携する機能を利用することができません。
+              ドメインは指定しなくても本サイトのデモを体験いただけます。
             </Box>
             <Box mt={6}>
               現在のドメイン: {user.domain ? user.domain : "(現在指定なし)"}
             </Box>
-
             <TextField
               variant="outlined"
               margin="normal"
@@ -184,7 +166,7 @@ const Auth: React.FC = () => {
               name="domain"
               autoComplete="domain"
               autoFocus
-              value={newDisplayName}
+              value={newDomain}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setNewDomain(e.target.value);
               }}
@@ -194,10 +176,21 @@ const Auth: React.FC = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={editDiaplayName}
+              disabled={domainIsDisabled}
+              onClick={editDomain}
             >
               Domain を変更
             </Button>
+            <Box mt={6}>
+              本番サイトでは、
+              ドメインにあなたが所属する組織の管理者が指定するフレーズを登録します。
+              通常はドメイン (example.com など)
+              が指定されますが、不明な場合は管理者に確認してください。
+              ドメインを指定することにより、勤務表の提出や各種の申請、
+              設備予約状況の確認や予約の設定などが利用できるようになります。
+              また管理者は、ドメインに所属するユーザの勤務表や各種申請に対する
+              査閲や承認を行うことが可能になります。
+            </Box>
           </form>
         </Container>
       ) : (

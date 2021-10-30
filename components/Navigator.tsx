@@ -17,7 +17,6 @@ import SettingsInputCompositeIcon from "@mui/icons-material/SettingsInputComposi
 import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 import FireplaceIcon from "@mui/icons-material/Fireplace";
 import AppsIcon from "@mui/icons-material/Apps";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import DnsIcon from "@mui/icons-material/Dns";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import AnchorIcon from "@mui/icons-material/Anchor";
@@ -31,7 +30,7 @@ import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
 
 const categories = [
   {
-    id: "Demonstration",
+    id: "デモサイト",
     children: [
       { id: "認証", icon: <FingerprintIcon />, active: false, idx: 1 },
       { id: "履歴", icon: <ListIcon />, active: false, idx: 2 },

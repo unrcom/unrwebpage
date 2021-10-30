@@ -47,8 +47,8 @@ const rows100 = [
   createData("メール", "info@unremoted.com"),
   createData(
     "対面でのお問い合わせ",
-    "上記のメールアドレスにご要件をお送りください。\
-    折り返しブラウザから接続可能なオンライン会議用のURLを返信いたします。"
+    "上記のメールアドレスにご要件をお送りください。" +
+      "折り返しブラウザから接続可能なオンライン会議用のURLを返信いたします。"
   ),
   createData("Facebook メッセンジャー", "https://m.me/unremoted"),
   createData("Twitter", "@unrcom"),

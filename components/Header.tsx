@@ -38,8 +38,6 @@ import DomainIcon from "@mui/icons-material/Domain";
 import ListIcon from "@mui/icons-material/List";
 import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
 
-const lightColor = "rgba(255, 255, 255, 0.7)";
-
 interface HeaderProps {
   onDrawerToggle: () => void;
 }
