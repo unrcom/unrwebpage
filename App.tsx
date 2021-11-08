@@ -6,26 +6,11 @@ import {
   logout,
   updateUserProfile,
 } from "./features/auth/authSlice";
-import {
-  selectLogRecordCountMax,
-  logUnshift,
-  logAdd,
-  logClear,
-} from "./features/log/logSlice";
+import { selectLogRecordCountMax, logAdd } from "./features/log/logSlice";
 
 import { auth, db } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import {
-  doc,
-  getDoc,
-  collection,
-  query,
-  getDocs,
-  //  onSnapshot,
-  orderBy,
-  where,
-  limit,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 import DumyMain from "./components/DumyMain";
 
@@ -34,25 +19,21 @@ function App() {
   const logRecordCountMax = useSelector(selectLogRecordCountMax);
   const dispatch = useDispatch();
 
-  // const stateClear = () => {
-  //   dispatch(logout());
-  //   //dispatch(();
-  //   dispatch(logClear());
-  // };
-
   useEffect(() => {
+    console.log("App.tsx 1st useEffect");
     const unSub = onAuthStateChanged(auth, (authUser) => {
       if (authUser) {
         if (user.uid.length === 0) {
           dispatch(
-            logUnshift({
-              created_at: Date.now(),
-              providerId: authUser.providerId,
-              uid: authUser.uid,
-              domain: "?",
-              level: "Info",
-              app: "Auth",
-              message: "Login",
+            logAdd({
+              loguser: { providerId: authUser.providerId, uid: authUser.uid },
+              log: {
+                created_at: null,
+                domain: "?",
+                level: "Info",
+                app: "Auth",
+                message: "認証通過",
+              },
             })
           );
         }
@@ -68,17 +49,37 @@ function App() {
           })
         );
       } else {
-        dispatch(logout());
-        dispatch(logClear());
-        // stateClear();
+        if (user.uid.length > 0) {
+          dispatch(
+            logAdd({
+              loguser: { providerId: user.providerId, uid: user.uid },
+              log: {
+                created_at: null,
+                domain: user.domain,
+                level: "Info",
+                app: "Auth",
+                message: "Logout",
+              },
+            })
+          );
+          dispatch(logout());
+        }
       }
     });
     return () => {
       unSub();
     };
-  }, [dispatch, user.displayName, user.domain, user.rool, user.uid]);
+  }, [
+    dispatch,
+    user.displayName,
+    user.domain,
+    user.rool,
+    user.providerId,
+    user.uid,
+  ]);
 
   useEffect(() => {
+    console.log("App.tsx 2nd useEffect");
     const fetchUser = async () => {
       const id = user.providerId + "_" + user.uid;
       const docRef = doc(db, "users", id);
@@ -97,37 +98,8 @@ function App() {
         );
       }
     };
-    const fetchLogs = async () => {
-      const q = query(
-        collection(db, "logs"),
-        where("providerId", "==", user.providerId),
-        where("uid", "==", user.uid),
-        orderBy("created_at", "desc"),
-        limit(logRecordCountMax.value)
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        // const unSub = onSnapshot(q, (snapshot) => {
-        //   snapshot.docs.map((doc) =>
-        dispatch(
-          logAdd({
-            created_at: doc.data().created_at,
-            providerId: doc.data().providerId,
-            uid: doc.data().uid,
-            domain: doc.data().domain,
-            level: doc.data().level,
-            app: doc.data().app,
-            message: doc.data().message,
-          })
-        );
-      });
-      // return () => {
-      //   unSub();
-      // };
-    };
     if (user.uid) {
       fetchUser();
-      fetchLogs();
     }
   }, [
     user.providerId,

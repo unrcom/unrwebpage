@@ -32,37 +32,37 @@ const categories = [
   {
     id: "デモサイト",
     children: [
-      { id: "認証", icon: <FingerprintIcon />, active: false, idx: 1 },
-      { id: "履歴", icon: <ListIcon />, active: false, idx: 2 },
-      { id: "投票", icon: <AlignHorizontalLeftIcon />, active: false, idx: 3 },
-      { id: "勤務", icon: <AssignmentIndIcon />, active: false, idx: 4 },
-      { id: "原価", icon: <AttachMoneyIcon />, active: false, idx: 5 },
-      { id: "資産", icon: <DomainIcon />, active: false, idx: 6 },
-      { id: "販売", icon: <AutoGraphIcon />, active: false, idx: 7 },
+      { id: "認証", icon: <FingerprintIcon />, active: false, idx: 10 },
+      { id: "投票", icon: <AlignHorizontalLeftIcon />, active: false, idx: 11 },
+      { id: "予約", icon: <DomainIcon />, active: false, idx: 12 },
+      { id: "勤務", icon: <AssignmentIndIcon />, active: false, idx: 13 },
+      { id: "原価", icon: <AttachMoneyIcon />, active: false, idx: 14 },
+      { id: "販売", icon: <AutoGraphIcon />, active: false, idx: 15 },
+      { id: "履歴", icon: <ListIcon />, active: false, idx: 16 },
     ],
   },
   {
     id: "技術要素",
     children: [
-      { id: "React", icon: <SpaIcon />, active: false, idx: 11 },
+      { id: "React", icon: <SpaIcon />, active: false, idx: 20 },
       {
         id: "TypeScript",
         icon: <SettingsInputCompositeIcon />,
         active: false,
-        idx: 12,
+        idx: 21,
       },
-      { id: "Redux", icon: <AutoAwesomeMotionIcon />, active: false, idx: 13 },
-      { id: "Firebase", icon: <FireplaceIcon />, active: false, idx: 14 },
-      { id: "AWS Route53", icon: <DnsIcon />, active: false, idx: 15 },
+      { id: "Redux", icon: <AutoAwesomeMotionIcon />, active: false, idx: 22 },
+      { id: "Firebase", icon: <FireplaceIcon />, active: false, idx: 23 },
+      { id: "AWS Route53", icon: <DnsIcon />, active: false, idx: 24 },
       {
         id: "AWS Cloudfront",
         icon: <CloudDownloadIcon />,
         active: false,
-        idx: 16,
+        idx: 25,
       },
-      { id: "Docker", icon: <AppsIcon />, active: false, idx: 17 },
-      { id: "Kubernetes", icon: <AnchorIcon />, active: false, idx: 18 },
-      { id: "Ansible", icon: <AddToDriveIcon />, active: false, idx: 19 },
+      { id: "Docker", icon: <AppsIcon />, active: false, idx: 26 },
+      { id: "Kubernetes", icon: <AnchorIcon />, active: false, idx: 27 },
+      { id: "Ansible", icon: <AddToDriveIcon />, active: false, idx: 28 },
     ],
   },
 ];
@@ -82,7 +82,7 @@ const itemCategory = {
   px: 3,
 };
 
-export default function Navigator(props) {
+export default function Navigator(props: any) {
   const { ...other } = props;
   const navigator = useSelector(selectNavigator);
   const dispatch = useDispatch();
@@ -93,18 +93,19 @@ export default function Navigator(props) {
         <ListItem
           sx={{ ...item, ...itemCategory, fontSize: 22, color: "#fff" }}
         >
-          unremoted.com
+          <ListItemButton
+            selected={navigator[0].selected}
+            sx={item}
+            onClick={() => dispatch(mod(0))}
+          >
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <h4>unremoted.com</h4>
+            </ListItemText>
+          </ListItemButton>
         </ListItem>
-        <ListItemButton
-          selected={navigator[0].selected}
-          sx={item}
-          onClick={() => dispatch(mod(0))}
-        >
-          <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText>会社概要</ListItemText>
-        </ListItemButton>
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: "#101F33" }}>
             <ListItem sx={{ py: 2, px: 3 }}>

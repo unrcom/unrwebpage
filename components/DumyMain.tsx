@@ -1,8 +1,9 @@
 import * as React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   selectSelectedMenu,
   selectNavigator,
+  mod,
 } from "../features/navigator/navigatorSlice";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -10,20 +11,24 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
+import Button from "@mui/material/Button";
+
 import Navigator from "./Navigator";
 import Content000 from "./Content000";
 import Content001 from "./Content001";
 import Auth from "./Auth";
 import Header from "./Header";
+import Rireki from "./Rireki";
 
 function Copyright() {
+  const dispatch = useDispatch();
+
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://unremoted.com/">
+      <Button variant="text" size="large" onClick={() => dispatch(mod(1))}>
         unremoted.com
-      </Link>{" "}
+      </Button>
       {new Date().getFullYear()}.
     </Typography>
   );
@@ -211,7 +216,7 @@ export default function Dumymain() {
             {selectedMenu.value >= 0 && selectedMenu.value <= 7 && (
               <Header onDrawerToggle={handleDrawerToggle} />
             )}
-            {selectedMenu.value >= 10 && selectedMenu.value <= 19 && (
+            {selectedMenu.value >= 10 && selectedMenu.value <= 29 && (
               <Header onDrawerToggle={handleDrawerToggle} />
             )}
           </>
@@ -220,17 +225,20 @@ export default function Dumymain() {
             sx={{ flex: 1, py: 6, px: 4, bgcolor: "#eaeff1" }}
           >
             <>
-              {selectedMenu.value === 0 &&
+              {selectedMenu.value === 1 &&
               navigator[selectedMenu.value].selectedTabValue === 0 ? (
                 <Content000 />
-              ) : selectedMenu.value === 0 &&
+              ) : selectedMenu.value === 1 &&
                 navigator[selectedMenu.value].selectedTabValue === 3 ? (
                 <Content000 />
-              ) : selectedMenu.value === 1 &&
+              ) : selectedMenu.value === 2 ? (
+                <Content000 />
+              ) : selectedMenu.value === 10 &&
                 navigator[selectedMenu.value].selectedTabValue === 0 ? (
                 <Auth />
-              ) : selectedMenu.value === 10 ? (
-                <Content000 />
+              ) : selectedMenu.value === 16 &&
+                navigator[selectedMenu.value].selectedTabValue === 0 ? (
+                <Rireki />
               ) : (
                 <Content001 />
               )}

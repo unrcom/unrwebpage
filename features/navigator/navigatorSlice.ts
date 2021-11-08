@@ -18,6 +18,7 @@ export interface Content {
   tab: Tab[];
 }
 
+//Review later
 export interface NavigatorState {
   selectedMenu: SelectedMenu;
   navigatorState: Content[];
@@ -28,6 +29,13 @@ const initialState: NavigatorState = {
   navigatorState: [
     {
       selected: true,
+      title: "当デモサイトについて",
+      tabCnt: 0,
+      selectedTabValue: 0,
+      tab: [{ selected: true, title: "" }],
+    },
+    {
+      selected: false,
       title: "会社概要",
       tabCnt: 4,
       selectedTabValue: 0,
@@ -37,6 +45,62 @@ const initialState: NavigatorState = {
         { selected: false, title: "公告" },
         { selected: false, title: "基準日" },
       ],
+    },
+    {
+      selected: false,
+      title: "お問い合わせ",
+      tabCnt: 0,
+      selectedTabValue: 0,
+      tab: [{ selected: true, title: "" }],
+    },
+    {
+      selected: false,
+      title: "",
+      tabCnt: 0,
+      selectedTabValue: 0,
+      tab: [{ selected: true, title: "" }],
+    },
+    {
+      selected: false,
+      title: "",
+      tabCnt: 0,
+      selectedTabValue: 0,
+      tab: [{ selected: true, title: "" }],
+    },
+    {
+      selected: false,
+      title: "",
+      tabCnt: 0,
+      selectedTabValue: 0,
+      tab: [{ selected: true, title: "" }],
+    },
+    {
+      selected: false,
+      title: "",
+      tabCnt: 0,
+      selectedTabValue: 0,
+      tab: [{ selected: true, title: "" }],
+    },
+    {
+      selected: false,
+      title: "",
+      tabCnt: 0,
+      selectedTabValue: 0,
+      tab: [{ selected: true, title: "" }],
+    },
+    {
+      selected: false,
+      title: "",
+      tabCnt: 0,
+      selectedTabValue: 0,
+      tab: [{ selected: true, title: "" }],
+    },
+    {
+      selected: false,
+      title: "",
+      tabCnt: 0,
+      selectedTabValue: 0,
+      tab: [{ selected: true, title: "" }],
     },
     {
       selected: false,
@@ -51,9 +115,9 @@ const initialState: NavigatorState = {
     },
     {
       selected: false,
-      title: "履歴",
+      title: "投票",
       tabCnt: 3,
-      selectedTabValue: 0,
+      selectedTabValue: 3,
       tab: [
         { selected: true, title: "Demo" },
         { selected: false, title: "概要" },
@@ -62,9 +126,9 @@ const initialState: NavigatorState = {
     },
     {
       selected: false,
-      title: "投票",
+      title: "予約",
       tabCnt: 3,
-      selectedTabValue: 3,
+      selectedTabValue: 0,
       tab: [
         { selected: true, title: "Demo" },
         { selected: false, title: "概要" },
@@ -95,17 +159,6 @@ const initialState: NavigatorState = {
     },
     {
       selected: false,
-      title: "資産",
-      tabCnt: 3,
-      selectedTabValue: 0,
-      tab: [
-        { selected: true, title: "Demo" },
-        { selected: false, title: "概要" },
-        { selected: false, title: "使い方" },
-      ],
-    },
-    {
-      selected: false,
       title: "販売",
       tabCnt: 3,
       selectedTabValue: 0,
@@ -117,10 +170,14 @@ const initialState: NavigatorState = {
     },
     {
       selected: false,
-      title: "",
-      tabCnt: 0,
+      title: "履歴",
+      tabCnt: 3,
       selectedTabValue: 0,
-      tab: [{ selected: true, title: "" }],
+      tab: [
+        { selected: true, title: "Demo" },
+        { selected: false, title: "概要" },
+        { selected: false, title: "使い方" },
+      ],
     },
     {
       selected: false,
@@ -131,7 +188,14 @@ const initialState: NavigatorState = {
     },
     {
       selected: false,
-      title: "お問い合わせ",
+      title: "",
+      tabCnt: 0,
+      selectedTabValue: 0,
+      tab: [{ selected: true, title: "" }],
+    },
+    {
+      selected: false,
+      title: "",
       tabCnt: 0,
       selectedTabValue: 0,
       tab: [{ selected: true, title: "" }],
@@ -256,7 +320,7 @@ export const navigatorSlice = createSlice({
   initialState,
   reducers: {
     mod: (state, action: PayloadAction<number>) => {
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 30; i++) {
         state.navigatorState[i].selected = false;
       }
       state.navigatorState[action.payload].selected = true;

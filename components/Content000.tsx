@@ -61,20 +61,20 @@ export default function Content000() {
   const navigator = useSelector(selectNavigator);
 
   if (
-    selectedMenu.value === 0 &&
+    selectedMenu.value === 1 &&
     navigator[selectedMenu.value].selectedTabValue === 0
   ) {
     rows = rows000;
   }
 
   if (
-    selectedMenu.value === 0 &&
+    selectedMenu.value === 1 &&
     navigator[selectedMenu.value].selectedTabValue === 3
   ) {
     rows = rows003;
   }
 
-  if (selectedMenu.value === 10) {
+  if (selectedMenu.value === 2) {
     rows = rows100;
   }
 

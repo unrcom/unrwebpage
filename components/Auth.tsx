@@ -57,6 +57,7 @@ const Auth: React.FC = () => {
     await updateDoc(docRef, {
       displayName: newDisplayName,
     });
+    console.log('Auth.tsx updateDoc("users.displayName")');
     dispatch(
       updateUserProfile({
         providerId: user.providerId,
@@ -76,6 +77,7 @@ const Auth: React.FC = () => {
     await updateDoc(docRef, {
       domain: newDomain,
     });
+    console.log('Auth.tsx updateDoc("users.domain")');
     dispatch(
       updateUserProfile({
         providerId: user.providerId,
@@ -87,14 +89,6 @@ const Auth: React.FC = () => {
         rool: user.rool,
       })
     );
-  };
-
-  const editDiaplayName = () => {
-    updateDisplayname();
-  };
-
-  const editDomain = () => {
-    updateDomain();
   };
 
   const displayNameIsDisabled = newDisplayName.length === 0;
@@ -147,7 +141,8 @@ const Auth: React.FC = () => {
               color="primary"
               className={classes.submit}
               disabled={displayNameIsDisabled}
-              onClick={editDiaplayName}
+              // onClick={editDiaplayName}
+              onClick={updateDisplayname}
             >
               Display name を変更
             </Button>
@@ -177,7 +172,8 @@ const Auth: React.FC = () => {
               color="primary"
               className={classes.submit}
               disabled={domainIsDisabled}
-              onClick={editDomain}
+              // onClick={editDomain}
+              onClick={updateDomain}
             >
               Domain を変更
             </Button>

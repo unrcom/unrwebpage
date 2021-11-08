@@ -9,7 +9,6 @@ export interface USERPROFILE {
   displayName: string;
   providerDisplayName: string;
   photoUrl: string;
-  offline: boolean;
 }
 
 export const authSlice = createSlice({
@@ -23,7 +22,6 @@ export const authSlice = createSlice({
       displayName: "",
       providerDisplayName: "",
       photoUrl: "",
-      offline: false,
     },
   },
   reducers: {
@@ -39,7 +37,6 @@ export const authSlice = createSlice({
         displayName: "",
         providerDisplayName: "",
         photoUrl: "",
-        offline: false,
       };
     },
     updateUserProfile: (state, action) => {

@@ -51,13 +51,22 @@ export default function Header(props: HeaderProps) {
 
   const icons = [
     <HomeIcon />,
+    <HomeIcon />,
+    <MailOutlineIcon />,
+    <DnsIcon />,
+    <DnsIcon />,
+    <DnsIcon />,
+    <DnsIcon />,
+    <DnsIcon />,
+    <DnsIcon />,
+    <DnsIcon />,
     <FingerprintIcon />,
-    <ListIcon />,
     <AlignHorizontalLeftIcon />,
+    <DomainIcon />,
     <AssignmentIndIcon />,
     <AttachMoneyIcon />,
-    <DomainIcon />,
     <AutoGraphIcon />,
+    <ListIcon />,
     <DnsIcon />,
     <DnsIcon />,
     <MailOutlineIcon />,
@@ -148,7 +157,7 @@ export default function Header(props: HeaderProps) {
               startIcon={<MailOutlineIcon />}
               color="inherit"
               size="large"
-              onClick={() => dispatch(mod(10))}
+              onClick={() => dispatch(mod(2))}
             >
               お問い合わせ
             </Button>{" "}

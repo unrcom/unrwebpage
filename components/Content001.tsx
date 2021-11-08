@@ -5,14 +5,23 @@ import {
   selectSelectedMenu,
   selectNavigator,
 } from "../features/navigator/navigatorSlice";
-//import SelectOfflinemode from "./SelectOfflinemode";
 
-const page001 =
+const page000 =
+  "# Unremote が提供するデモンストレーションサイトへようこそ！\n\n" +
+  "- 認証\n" +
+  "  - ログインすることにより、さまざまな Webアプリを体験していただけます\n" +
+  "  - ログインすると画面の右上に、認証プロバイダから連携されたユーザ名とアバター画像を表示します\n" +
+  "  - このユーザ名は自由に変更することが可能です\n\n" +
+  "- 投票\n" +
+  "  - 質問文などを自由に設定して、アンケートやイベントへの参加確認などを行えます\n\n" +
+  "";
+
+const page011 =
   "1. インターネット等の通信ネットワーク及び電子技術を利用した各種情報処理サービスの提供\n\n" +
   "1. DX人材の育成、能力開発のための教育事業\n\n" +
   "1. 前各号に附帯又は関連する一切の事業";
 
-const page002 =
+const page012 =
   "弊社における電子公告の掲載先として登記した URL は " +
   "http://unremoted.com です。\n\n" +
   "以下の事項については電子公告として５年間掲載します。\n\n" +
@@ -22,7 +31,7 @@ const page002 =
   "- 会社の分割\n" +
   "- 資本金の変更\n";
 
-const page011 =
+const page101 =
   "# 「認証」\n\n" +
   "すべての入り口であり、ここがバチッと決まっていないと" +
   "セキュリティや権限設定などがぐだぐだになってしまいます。\n\n" +
@@ -39,16 +48,16 @@ const page011 =
   "メールアドレスとパスワードを用いたオーソドックスな認証方式を用いることも可能ですし、" +
   "これらを併用することも可能です。\n";
 
-const page012 =
+const page102 =
   "- Googleアカウントにログインした後に、本画面よりログインが可能です。\n\n" +
   "- ログイン後はディスプレイ名 (初期値は Googleユーザ名) の変更とドメイン名の指定が可能になります。\n\n" +
   "- ドメイン名の指定することによって、本番サイトでは同一ドメイン名のユーザ間で以下の情報共有を行えます。\n\n" +
   "  - 勤務表の提出、提出後の査閲、承認状況の確認\n\n" +
   "  - 資産、設備の利用状況の確認と設定\n\n";
 
-const page110 = "https://ja.reactjs.org";
+const page200 = "https://ja.reactjs.org";
 
-const page111 =
+const page201 =
   "# React に出会えたのはとても幸運でした。\n\n" +
   "## Webフロントエンド開発フレームワーク比較\n\n" +
   "- 日本における求人数: (圧倒的に)React > Vue > Angular\n\n" +
@@ -63,9 +72,9 @@ const page111 =
   "- Qiita\n\n" +
   "- udemy\n\n";
 
-const page120 = "https://www.typescriptlang.org/ja";
+const page210 = "https://www.typescriptlang.org/ja";
 
-const page121 =
+const page211 =
   "# Typescript に出会えたのはとても幸運でした。\n\n" +
   "使いはじめた頃は、開発スピードは遅くなるし、Web上のサンプルコードは少ないし、" +
   "エラーはよくわからないし、Warning を消すために呪文が必要になるしで、" +
@@ -76,9 +85,9 @@ const page121 =
   "# VSCode 上でマウスをホバーすればなんとかなることに\n\n" +
   "(マイクロソフトさんのタッグに感謝！)";
 
-const page130 = "https://redux.js.org";
+const page220 = "https://redux.js.org";
 
-const page131 =
+const page221 =
   "# Redux Toolkit に出会えたのはとても幸運でした。\n\n" +
   "Redux Toolkit 以前は State と Context を使っていたのですが、" +
   "どうしても以下の問題が改善できませんでした。\n\n" +
@@ -87,9 +96,9 @@ const page131 =
   "# Redux Toolkit と Redux DevTools がすべてを解決してくれました。\n\n" +
   "アヤしい公告のようになってしまいましたが、これは事実です。";
 
-const page140 = "https://firebase.google.cn";
+const page230 = "https://firebase.google.cn";
 
-const page141 =
+const page231 =
   "# Firebase に出会えたのはとても幸運でした。\n\n" +
   "以前の開発スタイルでは以下の構成でバックエンドを構築していました。\n\n" +
   "- 開発環境: Dockerコンテナ\n\n" +
@@ -120,9 +129,9 @@ const page141 =
   "(オフラインモードを有効にすると、オフライン中はユーザ情報がPCに蓄積されますので、そのリスクに関する注意喚起と、" +
   "ユーザ様の合意が必要になります)\n\n";
 
-const page150 = "https://aws.amazon.com/jp/route53";
+const page240 = "https://aws.amazon.com/jp/route53";
 
-const page151 =
+const page241 =
   "# Route53 に出会えたのはとても幸運でした。\n\n" +
   "Route53 のおかげで繰り返し起こる DNS のセキュリティ問題と乗っ取られる恐怖から" +
   "解放されました。\n\n" +
@@ -131,9 +140,9 @@ const page151 =
   "ネットワークに詳しくないのであくまで「聞いた話」なのですが、" +
   "Route53 は DNS が 53ポートを用いて通信することからネーミングされたそうです。";
 
-const page160 = "https://aws.amazon.com/jp/cloudfront";
+const page250 = "https://aws.amazon.com/jp/cloudfront";
 
-const page161 =
+const page251 =
   "# Cloudfront に出会えたのはとても幸運でした。\n\n" +
   "- SSL通信を終端してくれている\n\n" +
   "- AWS Certificate Manager が SSL/TLS証明書を自動更新してくれている\n\n" +
@@ -141,9 +150,9 @@ const page161 =
   "- (ユーザリクエストがとても少ないので) 月額ほぼゼロ円で運用できている\n\n" +
   "夢のようなサービスです。";
 
-const page170 = "https://www.docker.com";
+const page260 = "https://www.docker.com";
 
-const page171 =
+const page261 =
   "# Docker に出会えたのはとても幸運でした。\n\n" +
   "開発環境を Dockerコンテナ上に構築することにより、" +
   "OSSの最新バージョンへの挑戦が容易になり、" +
@@ -154,13 +163,13 @@ const page171 =
   "Dockerコンテナは１プロセスに１コンテナを割り当てますので、" +
   "マイクロサービスによる分割統治を促進できるようにもなリました。";
 
-const page180 = "https://kubernetes.io/ja";
+const page270 = "https://kubernetes.io/ja";
 
-const page181 = "# Firebase のおかげで今のところワークロードは不要です。";
+const page271 = "# Firebase のおかげで今のところワークロードは不要です。";
 
-const page190 = "https://www.ansible.com";
+const page280 = "https://www.ansible.com";
 
-const page191 =
+const page281 =
   "# 「アンシブルとは？」\n\n" +
   "「工学者が即時伝達装置のことをそう呼んでいるんですがね。" +
   "彼が言うには、時間物理学者が時間慣性方程式を立ててくれさえすれば、" +
@@ -181,17 +190,14 @@ export default function Content001() {
 
   let markdown = "";
 
-  if (
-    selectedMenu.value === 0 &&
-    navigator[selectedMenu.value].selectedTabValue === 1
-  ) {
-    markdown = page001;
+  if (selectedMenu.value === 0) {
+    markdown = page000;
   }
   if (
-    selectedMenu.value === 0 &&
+    selectedMenu.value === 1 &&
     navigator[selectedMenu.value].selectedTabValue === 2
   ) {
-    markdown = page002;
+    markdown = page012;
   }
   if (
     selectedMenu.value === 1 &&
@@ -206,120 +212,128 @@ export default function Content001() {
     markdown = page012;
   }
   if (
-    selectedMenu.value === 11 &&
-    navigator[selectedMenu.value].selectedTabValue === 0
-  ) {
-    markdown = page110;
-  }
-  if (
-    selectedMenu.value === 11 &&
+    selectedMenu.value === 10 &&
     navigator[selectedMenu.value].selectedTabValue === 1
   ) {
-    markdown = page111;
+    markdown = page101;
   }
   if (
-    selectedMenu.value === 12 &&
+    selectedMenu.value === 10 &&
+    navigator[selectedMenu.value].selectedTabValue === 2
+  ) {
+    markdown = page102;
+  }
+  if (
+    selectedMenu.value === 20 &&
     navigator[selectedMenu.value].selectedTabValue === 0
   ) {
-    markdown = page120;
+    markdown = page200;
   }
   if (
-    selectedMenu.value === 12 &&
+    selectedMenu.value === 20 &&
     navigator[selectedMenu.value].selectedTabValue === 1
   ) {
-    markdown = page121;
+    markdown = page201;
   }
   if (
-    selectedMenu.value === 13 &&
+    selectedMenu.value === 21 &&
     navigator[selectedMenu.value].selectedTabValue === 0
   ) {
-    markdown = page130;
+    markdown = page210;
   }
   if (
-    selectedMenu.value === 13 &&
+    selectedMenu.value === 21 &&
     navigator[selectedMenu.value].selectedTabValue === 1
   ) {
-    markdown = page131;
+    markdown = page211;
   }
   if (
-    selectedMenu.value === 14 &&
+    selectedMenu.value === 22 &&
     navigator[selectedMenu.value].selectedTabValue === 0
   ) {
-    markdown = page140;
+    markdown = page220;
   }
   if (
-    selectedMenu.value === 14 &&
+    selectedMenu.value === 22 &&
     navigator[selectedMenu.value].selectedTabValue === 1
   ) {
-    markdown = page141;
+    markdown = page221;
   }
   if (
-    selectedMenu.value === 15 &&
+    selectedMenu.value === 23 &&
     navigator[selectedMenu.value].selectedTabValue === 0
   ) {
-    markdown = page150;
+    markdown = page230;
   }
   if (
-    selectedMenu.value === 15 &&
+    selectedMenu.value === 23 &&
     navigator[selectedMenu.value].selectedTabValue === 1
   ) {
-    markdown = page151;
+    markdown = page231;
   }
   if (
-    selectedMenu.value === 16 &&
+    selectedMenu.value === 24 &&
     navigator[selectedMenu.value].selectedTabValue === 0
   ) {
-    markdown = page160;
+    markdown = page240;
   }
   if (
-    selectedMenu.value === 16 &&
+    selectedMenu.value === 24 &&
     navigator[selectedMenu.value].selectedTabValue === 1
   ) {
-    markdown = page161;
+    markdown = page241;
   }
   if (
-    selectedMenu.value === 17 &&
+    selectedMenu.value === 25 &&
     navigator[selectedMenu.value].selectedTabValue === 0
   ) {
-    markdown = page170;
+    markdown = page250;
   }
   if (
-    selectedMenu.value === 17 &&
+    selectedMenu.value === 25 &&
     navigator[selectedMenu.value].selectedTabValue === 1
   ) {
-    markdown = page171;
+    markdown = page251;
   }
   if (
-    selectedMenu.value === 18 &&
+    selectedMenu.value === 26 &&
     navigator[selectedMenu.value].selectedTabValue === 0
   ) {
-    markdown = page180;
+    markdown = page260;
   }
   if (
-    selectedMenu.value === 18 &&
+    selectedMenu.value === 26 &&
     navigator[selectedMenu.value].selectedTabValue === 1
   ) {
-    markdown = page181;
+    markdown = page261;
   }
   if (
-    selectedMenu.value === 19 &&
+    selectedMenu.value === 27 &&
     navigator[selectedMenu.value].selectedTabValue === 0
   ) {
-    markdown = page190;
+    markdown = page270;
   }
   if (
-    selectedMenu.value === 19 &&
+    selectedMenu.value === 27 &&
     navigator[selectedMenu.value].selectedTabValue === 1
   ) {
-    markdown = page191;
+    markdown = page271;
+  }
+  if (
+    selectedMenu.value === 28 &&
+    navigator[selectedMenu.value].selectedTabValue === 0
+  ) {
+    markdown = page280;
+  }
+  if (
+    selectedMenu.value === 28 &&
+    navigator[selectedMenu.value].selectedTabValue === 1
+  ) {
+    markdown = page281;
   }
   return (
     <>
       <ReactMarkdown children={markdown} />
-      {/* {selectedMenu.value === 14 &&
-        navigator[selectedMenu.value].selectedTabValue === 1 && (
-          <SelectOfflinemode />
-        )} */}
     </>
   );
 }
