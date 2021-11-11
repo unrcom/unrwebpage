@@ -1,21 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
+//import { RootState } from "../../app/store";
 
 import { db } from "../../firebase";
-import {
-  doc,
-  getDoc,
-  setDoc,
-  collection,
-  addDoc,
-  serverTimestamp,
-} from "firebase/firestore";
+import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 
-import { NoEncryption } from "@material-ui/icons";
-
-export interface LogRecordCountMax {
-  value: number;
-}
+import dayjs from "dayjs";
 
 export interface LogUser {
   providerId: string;
@@ -23,11 +12,16 @@ export interface LogUser {
 }
 
 export interface Log {
-  created_at: any;
-  domain: string;
-  level: string;
+  tms: string;
+  dmn: string;
+  lvl: string;
   app: string;
-  message: string;
+  mss: string;
+}
+
+export interface Logs {
+  lastupdate_at: any;
+  logs: Log[];
 }
 
 export interface AddLog {
@@ -35,114 +29,46 @@ export interface AddLog {
   log: Log;
 }
 
-export interface Logs {
-  logs: Log[];
-}
-
-export interface Logstatus {
-  logRecordCountMax: LogRecordCountMax;
-  loguser: LogUser;
-  logs: Logs;
-}
-
-export interface DeleteLog {
-  loguser: LogUser;
-  log: Log;
-}
-
-const initialState: Logstatus = {
-  logRecordCountMax: { value: 200 },
-  loguser: { providerId: "", uid: "" },
-  logs: {
+const logAddAsync = async (addlog: AddLog) => {
+  const logRecordCountMax = 20;
+  const logsId = `${addlog.loguser.providerId}_${addlog.loguser.uid}`;
+  const docRef = doc(db, "logs", logsId);
+  const docSnap = await getDoc(docRef);
+  console.log("logSlice.ts logAddAsync() getDoc()");
+  let logsDoc: Logs = {
+    lastupdate_at: serverTimestamp(),
     logs: [
       {
-        created_at: null,
-        domain: "",
-        level: "",
-        app: "",
-        message: "",
+        tms: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+        dmn: addlog.log.dmn,
+        lvl: addlog.log.lvl,
+        app: addlog.log.app,
+        mss: addlog.log.mss,
       },
     ],
-  },
-};
-
-const logAddAsync = async (addlog: AddLog) => {
-  console.log(addlog);
-  const logsId = `${addlog.loguser.providerId}_${addlog.loguser.uid}`;
-  console.log(logsId);
-  const docRef = doc(db, "logs", logsId);
-  const docSnap = await getDoc(docRef);
-  //let cfdoc: Logs;
-  let cfdoc: any;
+  };
   if (docSnap.exists()) {
-    cfdoc = docSnap.data();
-    console.log(cfdoc);
-    // if (cfdoc.logs.length > 2000) {
-    //   cfdoc.logs.pop();
-    // }
-    cfdoc.logs.unshift(addlog.log);
-  } else {
-    cfdoc = {
-      logs: [
-        {
-          created_at: addlog.log.created_at,
-          domain: addlog.log.domain,
-          level: addlog.log.level,
-          app: addlog.log.app,
-          message: addlog.log.message,
-        },
-      ],
-    };
-  }
-  //cfdoc.logs[0].created_at = serverTimestamp();
-  await setDoc(doc(db, "logs", logsId), cfdoc);
-};
-
-const logDelAsync = async (deleteLog: DeleteLog) => {
-  const logsName = `${deleteLog.loguser.providerId}_${deleteLog.loguser.uid}_logs`;
-  try {
-    const docRef = await addDoc(collection(db, logsName), {
-      created_at: serverTimestamp(),
-      domain: deleteLog.log.domain,
-      level: "Info",
-      app: "Log",
-      message: "全履歴削除",
-    });
-    console.log("AddDoc: logs (2nd)");
-  } catch (e) {
-    console.error("データベースアクセスエラー: ", e);
-  }
-  const logsId = `${deleteLog.loguser.providerId}_${deleteLog.loguser.uid}`;
-  const docRef = doc(db, "logs", logsId);
-  const docSnap = await getDoc(docRef);
-  let cfdoc: any;
-  if (docSnap.exists()) {
-    cfdoc = docSnap.data();
-    console.log(cfdoc);
-    if (cfdoc.logs.length > 2000) {
-      cfdoc.logs.pop();
+    logsDoc.logs = docSnap.data().logs;
+    addlog.log.tms = dayjs().format("YYYY-MM-DD HH:mm:ss");
+    logsDoc.logs.unshift(addlog.log);
+    if (logsDoc.logs.length > logRecordCountMax) {
+      logsDoc.logs.pop();
     }
   }
-  cfdoc.logs.unshift(deleteLog.log);
-  await setDoc(doc(db, "logs", logsId), cfdoc);
+  await setDoc(doc(db, "logs", logsId), logsDoc);
+  console.log("logSlice.ts logAddAsync() setDoc()");
 };
 
 export const logSlice = createSlice({
   name: "log",
-  initialState,
+  initialState: {},
   reducers: {
     logAdd: (state, action) => {
       logAddAsync(action.payload);
     },
-    logDel: (state, action) => {
-      logDelAsync(action.payload);
-    },
   },
 });
 
-export const { logAdd, logDel } = logSlice.actions;
-
-export const selectLogRecordCountMax = (state: RootState) =>
-  state.log.logRecordCountMax;
+export const { logAdd } = logSlice.actions;
 
 export default logSlice.reducer;

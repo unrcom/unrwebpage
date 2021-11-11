@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { selectUser } from "../features/auth/authSlice";
-import { logAdd, Log } from "../features/log/logSlice";
+
 import RirekiMeisai from "./RirekiMeisai";
 
 import { db } from "../firebase";
@@ -18,46 +18,48 @@ import Container from "@mui/material/Container";
 
 import dayjs from "dayjs";
 
-import CircularProgress from "@mui/material/CircularProgress";
-import Button from "@mui/material/Button";
-import Fab from "@mui/material/Fab";
-import CheckIcon from "@mui/icons-material/Check";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { green } from "@mui/material/colors";
+interface As {
+  as: string[];
+}
 
-const Rireki: React.FC = () => {
+interface Q {
+  id: string;
+  title: string;
+  stat: number;
+  type: number;
+  desc: string;
+  released_at: string;
+  stoped_at: string;
+  as: As;
+}
+
+interface Qslist {
+  qs: Q[];
+}
+
+const Vote: React.FC = () => {
   const user = useSelector(selectUser);
-  const [logs, setLogs] = useState([
-    {
-      tms: "",
-      dmn: "",
-      lvl: "",
-      app: "",
-      mss: "",
-    },
+  const dispatch = useDispatch();
+  const [q: Q, setQ] = useState([
+    { title: "", stat: 0, type: 0, desc: "", released_at: "", stoped_at: "", as: as[] },
   ]);
 
-  const dispatch = useDispatch();
-  const [loading, setLoading] = React.useState(false);
-  const [success, setSuccess] = React.useState(false);
-  const timer = React.useRef<number>();
-  const [delcount, setDelcount] = React.useState(0);
-
   useEffect(() => {
-    console.log("Rireki.tsx useEffect 1st");
-    const fetchLogs = async () => {
-      const newlogs: Array<Log> = [];
+    console.log("Vote.tsx useEffect 1st");
+    const fetchQs = async () => {
       const logsId = `${user.providerId}_${user.uid}`;
-      const docRef = doc(db, "logs", logsId);
+      const docRef = doc(db, "qs", logsId);
       const docSnap = await getDoc(docRef);
-      console.log("Rireki.tsx fetchLogs() getDoc()");
-      let cfdoc: any;
+      console.log("Vote.tsx fetchQs() getDoc()");
+      let qsDoc: any;
+      let qUpdateUmu = 0;
       if (docSnap.exists()) {
-        cfdoc = docSnap.data();
-        if (cfdoc.logs[0].tms === null) {
-          cfdoc.logs[0].tms = dayjs.unix(cfdoc.lastupdate_at.seconds).format();
+        qsdoc = docSnap.data();
+        if (qsdoc.q[0].release_at === null) {
+          qsdoc.q[0].release_at = dayjs.unix(qsdoc.release_at.seconds).format();
+          qUpdateUmu = 1;
         }
-        for (const log of cfdoc.logs) {
+        for (const log of qsdoc.logs) {
           newlogs.push({
             tms: log.tms,
             dmn: log.dmn,
@@ -82,7 +84,7 @@ const Rireki: React.FC = () => {
       }
     };
     window.setTimeout(fetchLogs, 1500);
-  }, [user.providerId, user.uid, delcount]);
+  }, [logRecordCountMax, user.providerId, user.uid, delcount]);
 
   const buttonSx = {
     ...(success && {
@@ -207,7 +209,7 @@ const Rireki: React.FC = () => {
           </Container>
         </>
       ) : (
-        "認証　でログインすると本サイトの操作履歴を確認できます。"
+        "認証　でログインするとアンケートの作成や、公開したアンケートへの回答結果を確認できます。"
       )}
     </>
   );

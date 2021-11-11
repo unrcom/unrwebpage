@@ -4,32 +4,30 @@ import TableCell from "@mui/material/TableCell";
 
 interface PROPS {
   key: string;
-  created_at: string;
-  providerId: string;
-  uid: string;
-  domain: string;
-  level: string;
+  tms: string;
+  dmn: string;
+  lvl: string;
   app: string;
-  message: string;
+  mss: string;
 }
 
 const RirekiMeisai: React.FC<PROPS> = (props) => {
   return (
     <>
       <TableCell>
-        <span>{props.created_at}</span>
+        <span>{props.tms}</span>
       </TableCell>
       <TableCell>
-        <span>{props.domain}</span>
+        <span>{props.dmn}</span>
       </TableCell>
       <TableCell>
-        <span>{props.level}</span>
+        <span>{props.lvl}</span>
       </TableCell>
       <TableCell>
         <span>{props.app}</span>
       </TableCell>
       <TableCell>
-        <span>{props.message}</span>
+        <span>{props.mss}</span>
       </TableCell>
     </>
   );

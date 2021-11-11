@@ -28,6 +28,8 @@ import DomainIcon from "@mui/icons-material/Domain";
 import ListIcon from "@mui/icons-material/List";
 import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
 
+import Logo from "./images/unnamed.jpg";
+
 const categories = [
   {
     id: "デモサイト",
@@ -90,6 +92,19 @@ export default function Navigator(props: any) {
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
+        <ListItem
+          sx={{ ...item, ...itemCategory, fontSize: 22, color: "#fff" }}
+        >
+          <ListItemButton
+            selected={navigator[0].selected}
+            sx={item}
+            onClick={() => dispatch(mod(0))}
+          >
+            <ListItemIcon>
+              <img src={Logo} width="193" alt="logo" />
+            </ListItemIcon>
+          </ListItemButton>
+        </ListItem>
         <ListItem
           sx={{ ...item, ...itemCategory, fontSize: 22, color: "#fff" }}
         >

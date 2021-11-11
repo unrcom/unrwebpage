@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser, updateUserProfile } from "../features/auth/authSlice";
+import { logAdd } from "../features/log/logSlice";
 
 import { auth, provider, db } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
@@ -58,6 +59,7 @@ const Auth: React.FC = () => {
       displayName: newDisplayName,
     });
     console.log('Auth.tsx updateDoc("users.displayName")');
+    const oldDisplayName = user.displayName;
     dispatch(
       updateUserProfile({
         providerId: user.providerId,
@@ -69,6 +71,18 @@ const Auth: React.FC = () => {
         rool: user.rool,
       })
     );
+    dispatch(
+      logAdd({
+        loguser: { providerId: user.providerId, uid: user.uid },
+        log: {
+          tms: null,
+          dmn: user.domain,
+          lvl: "Info",
+          app: "Auth",
+          mss: `Displayname: "${oldDisplayName}" => "${newDisplayName}"`,
+        },
+      })
+    );
   };
 
   const updateDomain = async () => {
@@ -78,6 +92,7 @@ const Auth: React.FC = () => {
       domain: newDomain,
     });
     console.log('Auth.tsx updateDoc("users.domain")');
+    const oldDomain = user.domain;
     dispatch(
       updateUserProfile({
         providerId: user.providerId,
@@ -87,6 +102,18 @@ const Auth: React.FC = () => {
         displayName: user.displayName,
         domain: newDomain,
         rool: user.rool,
+      })
+    );
+    dispatch(
+      logAdd({
+        loguser: { providerId: user.providerId, uid: user.uid },
+        log: {
+          tms: null,
+          dmn: user.domain,
+          lvl: "Info",
+          app: "Auth",
+          mss: `Domain: "${oldDomain}" => "${newDomain}"`,
+        },
       })
     );
   };

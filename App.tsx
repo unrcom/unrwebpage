@@ -6,7 +6,7 @@ import {
   logout,
   updateUserProfile,
 } from "./features/auth/authSlice";
-import { selectLogRecordCountMax, logAdd } from "./features/log/logSlice";
+import { logAdd } from "./features/log/logSlice";
 
 import { auth, db } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -16,7 +16,6 @@ import DumyMain from "./components/DumyMain";
 
 function App() {
   const user = useSelector(selectUser);
-  const logRecordCountMax = useSelector(selectLogRecordCountMax);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,11 +27,11 @@ function App() {
             logAdd({
               loguser: { providerId: authUser.providerId, uid: authUser.uid },
               log: {
-                created_at: null,
-                domain: "?",
-                level: "Info",
+                tms: null,
+                dmn: "?",
+                lvl: "Info",
                 app: "Auth",
-                message: "認証通過",
+                mss: "認証通過",
               },
             })
           );
@@ -54,11 +53,11 @@ function App() {
             logAdd({
               loguser: { providerId: user.providerId, uid: user.uid },
               log: {
-                created_at: null,
-                domain: user.domain,
-                level: "Info",
+                tms: null,
+                dmn: user.domain,
+                lvl: "Info",
                 app: "Auth",
-                message: "Logout",
+                mss: "Logout",
               },
             })
           );
@@ -106,7 +105,6 @@ function App() {
     user.uid,
     user.photoUrl,
     user.providerDisplayName,
-    logRecordCountMax.value,
     dispatch,
   ]);
 
