@@ -18,13 +18,23 @@ export interface Content {
   tab: Tab[];
 }
 
-//Review later
-export interface NavigatorState {
-  selectedMenu: SelectedMenu;
-  navigatorState: Content[];
+export interface SelectedVote {
+  id: string;
 }
 
-const initialState: NavigatorState = {
+export interface SelectedVoteIdx {
+  idx: number;
+}
+
+//Review later
+export interface NavigatorStates {
+  selectedMenu: SelectedMenu;
+  navigatorState: Content[];
+  selectedVote: SelectedVote;
+  selectedVoteIdx: SelectedVoteIdx;
+}
+
+const initialState: NavigatorStates = {
   selectedMenu: { value: 0 },
   navigatorState: [
     {
@@ -117,7 +127,7 @@ const initialState: NavigatorState = {
       selected: false,
       title: "投票",
       tabCnt: 3,
-      selectedTabValue: 3,
+      selectedTabValue: 0,
       tab: [
         { selected: true, title: "Demo" },
         { selected: false, title: "概要" },
@@ -298,6 +308,8 @@ const initialState: NavigatorState = {
       tab: [{ selected: false, title: "" }],
     },
   ],
+  selectedVote: { id: "" },
+  selectedVoteIdx: { idx: 0 },
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -340,14 +352,24 @@ export const navigatorSlice = createSlice({
         action.payload
       ].selected = true;
     },
+    voteMod: (state, action: PayloadAction<string>) => {
+      state.selectedVote.id = action.payload;
+    },
+    voteMod2: (state, action: PayloadAction<number>) => {
+      state.selectedVoteIdx.idx = action.payload;
+    },
   },
 });
 
-export const { mod, tabMod } = navigatorSlice.actions;
+export const { mod, tabMod, voteMod, voteMod2 } = navigatorSlice.actions;
 
 export const selectNavigator = (state: RootState) =>
   state.navigator.navigatorState;
 export const selectSelectedMenu = (state: RootState) =>
   state.navigator.selectedMenu;
+export const selectSelectedVote = (state: RootState) =>
+  state.navigator.selectedVote;
+export const selectSelectedVoteIdx = (state: RootState) =>
+  state.navigator.selectedVoteIdx;
 
 export default navigatorSlice.reducer;

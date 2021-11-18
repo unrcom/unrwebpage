@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { selectUser } from "../features/auth/authSlice";
-import { logAdd, Log } from "../features/log/logSlice";
+import { logAdd, Log, Logs } from "../features/log/logSlice";
 import RirekiMeisai from "./RirekiMeisai";
 
 import { db } from "../firebase";
@@ -15,8 +15,6 @@ import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-
-import dayjs from "dayjs";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
@@ -46,18 +44,26 @@ const Rireki: React.FC = () => {
   useEffect(() => {
     console.log("Rireki.tsx useEffect 1st");
     const fetchLogs = async () => {
-      const newlogs: Array<Log> = [];
       const logsId = `${user.providerId}_${user.uid}`;
       const docRef = doc(db, "logs", logsId);
       const docSnap = await getDoc(docRef);
       console.log("Rireki.tsx fetchLogs() getDoc()");
-      let cfdoc: any;
+      const newlogs: Array<Log> = [];
+      let logsDoc: Logs = {
+        lastupdate_at: null,
+        logs: [
+          {
+            tms: "",
+            dmn: "",
+            lvl: "",
+            app: "",
+            mss: "",
+          },
+        ],
+      };
       if (docSnap.exists()) {
-        cfdoc = docSnap.data();
-        if (cfdoc.logs[0].tms === null) {
-          cfdoc.logs[0].tms = dayjs.unix(cfdoc.lastupdate_at.seconds).format();
-        }
-        for (const log of cfdoc.logs) {
+        logsDoc.logs = docSnap.data().logs;
+        for (const log of logsDoc.logs) {
           newlogs.push({
             tms: log.tms,
             dmn: log.dmn,

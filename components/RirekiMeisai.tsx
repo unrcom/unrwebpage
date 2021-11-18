@@ -3,7 +3,6 @@ import React from "react";
 import TableCell from "@mui/material/TableCell";
 
 interface PROPS {
-  key: string;
   tms: string;
   dmn: string;
   lvl: string;
