@@ -1,4 +1,5 @@
 import React from "react";
+//import * as React from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { voteMod } from "../features/navigator/navigatorSlice";
 
@@ -12,6 +13,10 @@ import TableCell from "@mui/material/TableCell";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+
+import EditIcon from "@mui/icons-material/Edit";
 
 interface PROPS {
   key: string;
@@ -24,16 +29,16 @@ interface PROPS {
 }
 
 const QlistMeisai: React.FC<PROPS> = (props) => {
-  const [titleOpen, setTitleOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const [inputText, setInputText] = React.useState("");
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
-  const handleTitleOpen = () => {
-    setTitleOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
   };
-  const handleTitleClose = () => {
-    setTitleOpen(false);
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const handleInputTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,17 +63,19 @@ const QlistMeisai: React.FC<PROPS> = (props) => {
 
   return (
     <>
-      <Button
-        variant="text"
-        onClick={() => {
-          handleTitleOpen();
-          selectedLine();
-        }}
-      >
-        <TableCell>
-          <span>{props.title}</span>
-        </TableCell>
-      </Button>
+      <TableCell>
+        <IconButton
+          size="small"
+          onClick={() => {
+            handleOpen();
+          }}
+        >
+          <EditIcon />
+        </IconButton>
+      </TableCell>
+      <TableCell>
+        <span>{props.title}</span>
+      </TableCell>
       <TableCell>
         <span>{props.stat}</span>
       </TableCell>
@@ -82,14 +89,38 @@ const QlistMeisai: React.FC<PROPS> = (props) => {
         <span>{props.stoped_at}</span>
       </TableCell>
       <TableCell>
-        <span>{props.id}</span>
+        <Button
+          variant="text"
+          size="small"
+          onClick={() => {
+            selectedLine();
+          }}
+        >
+          <span>{props.id}</span>
+        </Button>
       </TableCell>
 
-      <Modal open={titleOpen} onClose={handleTitleClose}>
-        <>
-          {/* <div style={modalStyle} className={classes.paper}> */}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
           <TextField
-            //   className={classes.field}
+            id="modal-modal-title"
             InputLabelProps={{
               shrink: true,
             }}
@@ -99,21 +130,19 @@ const QlistMeisai: React.FC<PROPS> = (props) => {
             onChange={handleInputTextChange}
           />
           <Button
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
             variant="contained"
             color="primary"
             size="small"
-            //   className={classes.saveModal}
-            //   startIcon={<SaveIcon />}
-            //   disabled={isCatDisabled}
             onClick={() => {
               dispatch(fetchAsyncUpdateTitle(inputText));
-              handleTitleClose();
+              handleClose();
             }}
           >
             SAVE
           </Button>
-          {/* </div> */}
-        </>
+        </Box>
       </Modal>
     </>
   );

@@ -77,7 +77,6 @@ const Vote: React.FC = () => {
       id: "",
     },
   ]);
-  //const [qs, setQs] = useState([]);
   const [qs, setQs] = useState([
     {
       idx: 0,
@@ -90,6 +89,7 @@ const Vote: React.FC = () => {
   const [dataOrUidNashi, setDataOrUidNashi] = useState(
     "認証　でログインするとアンケートの作成や、公開したアンケートへの回答結果を確認できます。"
   );
+  const [selectedTitle, setSelectedTitle] = useState("");
 
   useEffect(() => {
     console.log("Vote.tsx useEffect 1st");
@@ -193,6 +193,11 @@ const Vote: React.FC = () => {
 
     if (selectedVote.id) {
       fetchQs();
+      for (const q of qlist) {
+        if (q.id === selectedVote.id) {
+          setSelectedTitle(q.title);
+        }
+      }
     }
   }, [selectedVote.id]);
 
@@ -201,7 +206,7 @@ const Vote: React.FC = () => {
       {selectedVoteIdx.idx > 0 ? (
         <>
           <Box mt={6}>
-            <h2>設問 No {selectedVoteIdx.idx} の回答選択肢</h2>
+            <h3>設問 No {selectedVoteIdx.idx} の回答選択肢</h3>
           </Box>
           <Table size="small">
             <TableBody>
@@ -220,11 +225,12 @@ const Vote: React.FC = () => {
       {selectedVote.id ? (
         <>
           <Box mt={6}>
-            <h2>設問一覧</h2>
+            <h3>設問一覧 [{selectedTitle}]</h3>
           </Box>
           <Table size="small">
             <TableHead>
               <TableRow>
+                <TableCell></TableCell>
                 <TableCell>No.</TableCell>
                 <TableCell>設問</TableCell>
                 <TableCell>回答方法</TableCell>
@@ -253,11 +259,12 @@ const Vote: React.FC = () => {
       {user.uid && dataAri ? (
         <>
           <Box mt={6}>
-            <h2>投票タイトル一覧</h2>
+            <h3>投票タイトル一覧</h3>
           </Box>
           <Table size="small">
             <TableHead>
               <TableRow>
+                <TableCell></TableCell>
                 <TableCell>タイトル</TableCell>
                 <TableCell>ステータス</TableCell>
                 <TableCell>回答上限数</TableCell>
