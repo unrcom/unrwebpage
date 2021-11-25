@@ -20,6 +20,7 @@ import Auth from "./Auth";
 import Header from "./Header";
 import Rireki from "./Rireki";
 import Vote from "./Vote";
+import Game from "./Game";
 
 function Copyright() {
   const dispatch = useDispatch();
@@ -239,7 +240,8 @@ export default function Dumymain() {
                 <Auth />
               ) : selectedMenu.value === 11 &&
                 navigator[selectedMenu.value].selectedTabValue === 0 ? (
-                <Vote />
+                // <Vote />
+                <Game />
               ) : selectedMenu.value === 16 &&
                 navigator[selectedMenu.value].selectedTabValue === 0 ? (
                 <Rireki />

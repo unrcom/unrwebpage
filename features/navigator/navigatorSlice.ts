@@ -125,7 +125,7 @@ const initialState: NavigatorStates = {
     },
     {
       selected: false,
-      title: "投票",
+      title: "３目並べ",
       tabCnt: 3,
       selectedTabValue: 0,
       tab: [

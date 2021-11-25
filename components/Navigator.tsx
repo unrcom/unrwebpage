@@ -28,14 +28,19 @@ import DomainIcon from "@mui/icons-material/Domain";
 import ListIcon from "@mui/icons-material/List";
 import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
 
-import Logo from "./images/unnamed.jpg";
+import Logo from "./images/unnamed.png";
 
 const categories = [
   {
     id: "デモサイト",
     children: [
       { id: "認証", icon: <FingerprintIcon />, active: false, idx: 10 },
-      { id: "投票", icon: <AlignHorizontalLeftIcon />, active: false, idx: 11 },
+      {
+        id: "３目並べ",
+        icon: <AlignHorizontalLeftIcon />,
+        active: false,
+        idx: 11,
+      },
       { id: "予約", icon: <DomainIcon />, active: false, idx: 12 },
       { id: "勤務", icon: <AssignmentIndIcon />, active: false, idx: 13 },
       { id: "原価", icon: <AttachMoneyIcon />, active: false, idx: 14 },
@@ -101,9 +106,10 @@ export default function Navigator(props: any) {
             onClick={() => dispatch(mod(0))}
           >
             <ListItemIcon>
-              <img src={Logo} width="193" alt="logo" />
+              <img src={Logo} width="22" alt="logo" />
             </ListItemIcon>
           </ListItemButton>
+          demoru.net
         </ListItem>
         <ListItem
           sx={{ ...item, ...itemCategory, fontSize: 22, color: "#fff" }}
