@@ -1,11 +1,11 @@
 import React from "react";
 
-import Square from "./Square";
+import Square3Online from "./Square3Online";
 import styles from "./Board.module.css";
 
-const Board: React.FC = () => {
+const Board3Online: React.FC = () => {
   const renderSquare = (i: number) => {
-    return <Square idx={i} />;
+    return <Square3Online idx={i} />;
   };
 
   return (
@@ -29,4 +29,4 @@ const Board: React.FC = () => {
   );
 };
 
-export default Board;
+export default Board3Online;

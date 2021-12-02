@@ -4,7 +4,6 @@ import TableCell from "@mui/material/TableCell";
 
 interface PROPS {
   tms: string;
-  dmn: string;
   lvl: string;
   app: string;
   mss: string;
@@ -15,9 +14,6 @@ const RirekiMeisai: React.FC<PROPS> = (props) => {
     <>
       <TableCell>
         <span>{props.tms}</span>
-      </TableCell>
-      <TableCell>
-        <span>{props.dmn}</span>
       </TableCell>
       <TableCell>
         <span>{props.lvl}</span>

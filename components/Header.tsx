@@ -31,10 +31,10 @@ import DnsIcon from "@mui/icons-material/Dns";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import AnchorIcon from "@mui/icons-material/Anchor";
 import AddToDriveIcon from "@mui/icons-material/AddToDrive";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+// import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import DomainIcon from "@mui/icons-material/Domain";
+// import DomainIcon from "@mui/icons-material/Domain";
 import ListIcon from "@mui/icons-material/List";
 import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
 
@@ -51,8 +51,8 @@ export default function Header(props: HeaderProps) {
 
   const icons = [
     <HomeIcon />,
-    <HomeIcon />,
-    <MailOutlineIcon />,
+    <DnsIcon />,
+    <DnsIcon />,
     <DnsIcon />,
     <DnsIcon />,
     <DnsIcon />,
@@ -61,9 +61,9 @@ export default function Header(props: HeaderProps) {
     <DnsIcon />,
     <DnsIcon />,
     <FingerprintIcon />,
+    <AutoGraphIcon />,
+    <AutoGraphIcon />,
     <AlignHorizontalLeftIcon />,
-    <DomainIcon />,
-    <AssignmentIndIcon />,
     <AttachMoneyIcon />,
     <AutoGraphIcon />,
     <ListIcon />,
@@ -156,7 +156,7 @@ export default function Header(props: HeaderProps) {
               variant="outlined"
               startIcon={<MailOutlineIcon />}
               color="inherit"
-              size="large"
+              size="small"
               onClick={() => dispatch(mod(2))}
             >
               お問い合わせ

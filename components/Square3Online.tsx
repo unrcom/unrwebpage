@@ -1,14 +1,17 @@
 import React from "react";
 import styles from "./Square.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCurrent, add } from "../features/sanmoku/sanmokuSlice";
+import {
+  selectTaisenRireki,
+  add,
+} from "../features/sanmokuOnline/sanmokuOnlineSlice";
 
 interface PROPS {
   idx: number;
 }
 
-const Square: React.FC<PROPS> = (props) => {
-  const current = useSelector(selectCurrent);
+const Square3Online: React.FC<PROPS> = (props) => {
+  const taisenRireki = useSelector(selectTaisenRireki);
   const dispatch = useDispatch();
   return (
     <>
@@ -16,10 +19,10 @@ const Square: React.FC<PROPS> = (props) => {
         className={styles.square}
         onClick={() => dispatch(add(props.idx))}
       >
-        {current.squares[props.idx]}
+        {taisenRireki.squares[props.idx]}
       </button>
     </>
   );
 };
 
-export default Square;
+export default Square3Online;

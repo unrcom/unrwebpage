@@ -19,8 +19,9 @@ import Content001 from "./Content001";
 import Auth from "./Auth";
 import Header from "./Header";
 import Rireki from "./Rireki";
-import Vote from "./Vote";
 import Game from "./Game";
+import Game3Online from "./Game3Online";
+import Covid19App from "./Covid19App";
 
 function Copyright() {
   const dispatch = useDispatch();
@@ -240,8 +241,13 @@ export default function Dumymain() {
                 <Auth />
               ) : selectedMenu.value === 11 &&
                 navigator[selectedMenu.value].selectedTabValue === 0 ? (
-                // <Vote />
                 <Game />
+              ) : selectedMenu.value === 12 &&
+                navigator[selectedMenu.value].selectedTabValue === 0 ? (
+                <Game3Online />
+              ) : selectedMenu.value === 13 &&
+                navigator[selectedMenu.value].selectedTabValue === 0 ? (
+                <Covid19App />
               ) : selectedMenu.value === 16 &&
                 navigator[selectedMenu.value].selectedTabValue === 0 ? (
                 <Rireki />

@@ -10,7 +10,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import HomeIcon from "@mui/icons-material/Home";
+// import HomeIcon from "@mui/icons-material/Home";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import SpaIcon from "@mui/icons-material/Spa";
 import SettingsInputCompositeIcon from "@mui/icons-material/SettingsInputComposite";
@@ -21,14 +21,14 @@ import DnsIcon from "@mui/icons-material/Dns";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import AnchorIcon from "@mui/icons-material/Anchor";
 import AddToDriveIcon from "@mui/icons-material/AddToDrive";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+// import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import DomainIcon from "@mui/icons-material/Domain";
+// import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+// import DomainIcon from "@mui/icons-material/Domain";
 import ListIcon from "@mui/icons-material/List";
 import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
 
-import Logo from "./images/unnamed.png";
+import Logo from "./images/unnamed.svg";
 
 const categories = [
   {
@@ -37,14 +37,22 @@ const categories = [
       { id: "認証", icon: <FingerprintIcon />, active: false, idx: 10 },
       {
         id: "３目並べ",
-        icon: <AlignHorizontalLeftIcon />,
+        icon: <AutoGraphIcon />,
         active: false,
         idx: 11,
       },
-      { id: "予約", icon: <DomainIcon />, active: false, idx: 12 },
-      { id: "勤務", icon: <AssignmentIndIcon />, active: false, idx: 13 },
-      { id: "原価", icon: <AttachMoneyIcon />, active: false, idx: 14 },
-      { id: "販売", icon: <AutoGraphIcon />, active: false, idx: 15 },
+      {
+        id: "３目並べオンライン",
+        icon: <AutoGraphIcon />,
+        active: false,
+        idx: 12,
+      },
+      {
+        id: "Covid19ライブ",
+        icon: <AlignHorizontalLeftIcon />,
+        active: false,
+        idx: 13,
+      },
       { id: "履歴", icon: <ListIcon />, active: false, idx: 16 },
     ],
   },
@@ -106,12 +114,11 @@ export default function Navigator(props: any) {
             onClick={() => dispatch(mod(0))}
           >
             <ListItemIcon>
-              <img src={Logo} width="22" alt="logo" />
+              <img src={Logo} width="180" alt="logo" />
             </ListItemIcon>
           </ListItemButton>
-          demoru.net
         </ListItem>
-        <ListItem
+        {/* <ListItem
           sx={{ ...item, ...itemCategory, fontSize: 22, color: "#fff" }}
         >
           <ListItemButton
@@ -126,7 +133,7 @@ export default function Navigator(props: any) {
               <h4>unremoted.com</h4>
             </ListItemText>
           </ListItemButton>
-        </ListItem>
+        </ListItem> */}
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: "#101F33" }}>
             <ListItem sx={{ py: 2, px: 3 }}>

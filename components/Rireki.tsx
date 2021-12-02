@@ -28,7 +28,6 @@ const Rireki: React.FC = () => {
   const [logs, setLogs] = useState([
     {
       tms: "",
-      dmn: "",
       lvl: "",
       app: "",
       mss: "",
@@ -54,7 +53,6 @@ const Rireki: React.FC = () => {
         logs: [
           {
             tms: "",
-            dmn: "",
             lvl: "",
             app: "",
             mss: "",
@@ -66,7 +64,6 @@ const Rireki: React.FC = () => {
         for (const log of logsDoc.logs) {
           newlogs.push({
             tms: log.tms,
-            dmn: log.dmn,
             lvl: log.lvl,
             app: log.app,
             mss: log.mss,
@@ -79,7 +76,6 @@ const Rireki: React.FC = () => {
         setLogs(
           newlogs.map((doc) => ({
             tms: doc.tms,
-            dmn: doc.dmn,
             lvl: doc.lvl,
             app: doc.app,
             mss: doc.mss,
@@ -138,7 +134,6 @@ const Rireki: React.FC = () => {
             <TableHead>
               <TableRow>
                 <TableCell>日時</TableCell>
-                <TableCell>Domain</TableCell>
                 <TableCell>ログレベル</TableCell>
                 <TableCell>アプリ</TableCell>
                 <TableCell>メッセージ</TableCell>
@@ -150,7 +145,6 @@ const Rireki: React.FC = () => {
                   <RirekiMeisai
                     key={log.tms}
                     tms={log.tms}
-                    dmn={log.dmn}
                     lvl={log.lvl}
                     app={log.app}
                     mss={log.mss}

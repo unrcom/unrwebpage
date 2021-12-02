@@ -13,7 +13,6 @@ export interface LogUser {
 
 export interface Log {
   tms: string;
-  dmn: string;
   lvl: string;
   app: string;
   mss: string;
@@ -40,7 +39,6 @@ const logAddAsync = async (addlog: AddLog) => {
     logs: [
       {
         tms: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-        dmn: addlog.log.dmn,
         lvl: addlog.log.lvl,
         app: addlog.log.app,
         mss: addlog.log.mss,

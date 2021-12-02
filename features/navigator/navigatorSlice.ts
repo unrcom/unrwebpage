@@ -136,29 +136,29 @@ const initialState: NavigatorStates = {
     },
     {
       selected: false,
+      title: "３目並べオンライン",
+      tabCnt: 1,
+      selectedTabValue: 0,
+      tab: [
+        { selected: true, title: "Demo" },
+        // { selected: false, title: "概要" },
+        // { selected: false, title: "使い方" },
+      ],
+    },
+    {
+      selected: false,
+      title: "Covid19ライブ",
+      tabCnt: 1,
+      selectedTabValue: 0,
+      tab: [
+        { selected: true, title: "Demo" },
+        // { selected: false, title: "概要" },
+        // { selected: false, title: "使い方" },
+      ],
+    },
+    {
+      selected: false,
       title: "予約",
-      tabCnt: 3,
-      selectedTabValue: 0,
-      tab: [
-        { selected: true, title: "Demo" },
-        { selected: false, title: "概要" },
-        { selected: false, title: "使い方" },
-      ],
-    },
-    {
-      selected: false,
-      title: "勤務",
-      tabCnt: 3,
-      selectedTabValue: 0,
-      tab: [
-        { selected: true, title: "Demo" },
-        { selected: false, title: "概要" },
-        { selected: false, title: "使い方" },
-      ],
-    },
-    {
-      selected: false,
-      title: "原価",
       tabCnt: 3,
       selectedTabValue: 0,
       tab: [
@@ -181,12 +181,12 @@ const initialState: NavigatorStates = {
     {
       selected: false,
       title: "履歴",
-      tabCnt: 3,
+      tabCnt: 1,
       selectedTabValue: 0,
       tab: [
         { selected: true, title: "Demo" },
-        { selected: false, title: "概要" },
-        { selected: false, title: "使い方" },
+        // { selected: false, title: "概要" },
+        // { selected: false, title: "使い方" },
       ],
     },
     {

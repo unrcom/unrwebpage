@@ -46,7 +46,7 @@ const Auth: React.FC = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const [newDisplayName, setNewDisplayName] = useState("");
-  const [newDomain, setNewDomain] = useState("");
+  // const [newDomain, setNewDomain] = useState("");
 
   const signInGoogle = async () => {
     await signInWithPopup(auth, provider).catch((err) => alert(err.message));
@@ -85,41 +85,41 @@ const Auth: React.FC = () => {
     );
   };
 
-  const updateDomain = async () => {
-    const id = user.providerId + "_" + user.uid;
-    const docRef = doc(db, "users", id);
-    await updateDoc(docRef, {
-      domain: newDomain,
-    });
-    console.log('Auth.tsx updateDoc("users.domain")');
-    const oldDomain = user.domain;
-    dispatch(
-      updateUserProfile({
-        providerId: user.providerId,
-        uid: user.uid,
-        photoUrl: user.photoUrl,
-        providerDisplayName: user.providerDisplayName,
-        displayName: user.displayName,
-        domain: newDomain,
-        rool: user.rool,
-      })
-    );
-    dispatch(
-      logAdd({
-        loguser: { providerId: user.providerId, uid: user.uid },
-        log: {
-          tms: null,
-          dmn: user.domain,
-          lvl: "Info",
-          app: "Auth",
-          mss: `Domain: "${oldDomain}" => "${newDomain}"`,
-        },
-      })
-    );
-  };
+  // const updateDomain = async () => {
+  //   const id = user.providerId + "_" + user.uid;
+  //   const docRef = doc(db, "users", id);
+  //   await updateDoc(docRef, {
+  //     domain: newDomain,
+  //   });
+  //   console.log('Auth.tsx updateDoc("users.domain")');
+  //   const oldDomain = user.domain;
+  //   dispatch(
+  //     updateUserProfile({
+  //       providerId: user.providerId,
+  //       uid: user.uid,
+  //       photoUrl: user.photoUrl,
+  //       providerDisplayName: user.providerDisplayName,
+  //       displayName: user.displayName,
+  //       domain: newDomain,
+  //       rool: user.rool,
+  //     })
+  //   );
+  //   dispatch(
+  //     logAdd({
+  //       loguser: { providerId: user.providerId, uid: user.uid },
+  //       log: {
+  //         tms: null,
+  //         dmn: user.domain,
+  //         lvl: "Info",
+  //         app: "Auth",
+  //         mss: `Domain: "${oldDomain}" => "${newDomain}"`,
+  //       },
+  //     })
+  //   );
+  // };
 
   const displayNameIsDisabled = newDisplayName.length === 0;
-  const domainIsDisabled = newDomain.length === 0;
+  // const domainIsDisabled = newDomain.length === 0;
 
   return (
     <>
@@ -173,7 +173,7 @@ const Auth: React.FC = () => {
             >
               Display name を変更
             </Button>
-            <Box mt={6}>
+            {/* <Box mt={6}>
               ドメインは指定しなくても本サイトのデモを体験いただけます。
             </Box>
             <Box mt={6}>
@@ -213,7 +213,7 @@ const Auth: React.FC = () => {
               設備予約状況の確認や予約の設定などが利用できるようになります。
               また管理者は、ドメインに所属するユーザの勤務表や各種申請に対する
               査閲や承認を行うことが可能になります。
-            </Box>
+            </Box> */}
           </form>
         </Container>
       ) : (
